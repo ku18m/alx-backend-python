@@ -9,7 +9,5 @@ async def wait_n(n: int, max_delay: int) -> List[float]:
     """
     Returns a list of all the delays (float values)
     """
-    delays = []
-    for _ in range(n):
-        delays.append(await wait_random(max_delay))
-    return sorted(delays)
+    results = await asyncio.gather(*[wait_random(max_delay) for _ in range(n)])
+    return sorted(results)
